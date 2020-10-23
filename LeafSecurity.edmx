@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LeafSecurityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountInformation">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountNumber" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="AccountPinCode" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="AccountCreationDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeDescription" Type="varchar(max)" />
+          <Property Name="TypeName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FingerprintTemplate">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+          </Key>
+          <Property Name="TemplateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="MinutiaeTemplateID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MinutiaeTemplatePath">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplatePath" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserInformation">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="320" />
+        </EntityType>
+        <Association Name="FK__AccountIn__TypeI__276EDEB3">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="1" />
+          <End Role="AccountInformation" Type="Self.AccountInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="AccountInformation">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fingerpri__Accou__33D4B598">
+          <End Role="AccountInformation" Type="Self.AccountInformation" Multiplicity="1" />
+          <End Role="FingerprintTemplate" Type="Self.FingerprintTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountInformation">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="FingerprintTemplate">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fingerpri__Minut__34C8D9D1">
+          <End Role="MinutiaeTemplatePath" Type="Self.MinutiaeTemplatePath" Multiplicity="1" />
+          <End Role="FingerprintTemplate" Type="Self.FingerprintTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MinutiaeTemplatePath">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FingerprintTemplate">
+              <PropertyRef Name="MinutiaeTemplateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserInfor__Accou__2E1BDC42">
+          <End Role="AccountInformation" Type="Self.AccountInformation" Multiplicity="1" />
+          <End Role="UserInformation" Type="Self.UserInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountInformation">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="UserInformation">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LeafSecurityModelStoreContainer">
+          <EntitySet Name="AccountInformation" EntityType="Self.AccountInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountType" EntityType="Self.AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FingerprintTemplate" EntityType="Self.FingerprintTemplate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MinutiaeTemplatePath" EntityType="Self.MinutiaeTemplatePath" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInformation" EntityType="Self.UserInformation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AccountIn__TypeI__276EDEB3" Association="Self.FK__AccountIn__TypeI__276EDEB3">
+            <End Role="AccountType" EntitySet="AccountType" />
+            <End Role="AccountInformation" EntitySet="AccountInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fingerpri__Accou__33D4B598" Association="Self.FK__Fingerpri__Accou__33D4B598">
+            <End Role="AccountInformation" EntitySet="AccountInformation" />
+            <End Role="FingerprintTemplate" EntitySet="FingerprintTemplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fingerpri__Minut__34C8D9D1" Association="Self.FK__Fingerpri__Minut__34C8D9D1">
+            <End Role="MinutiaeTemplatePath" EntitySet="MinutiaeTemplatePath" />
+            <End Role="FingerprintTemplate" EntitySet="FingerprintTemplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserInfor__Accou__2E1BDC42" Association="Self.FK__UserInfor__Accou__2E1BDC42">
+            <End Role="AccountInformation" EntitySet="AccountInformation" />
+            <End Role="UserInformation" EntitySet="UserInformation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LeafSecurityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountInformation">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountCreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccountType" Relationship="Self.FK__AccountIn__TypeI__276EDEB3" FromRole="AccountInformation" ToRole="AccountType" />
+          <NavigationProperty Name="FingerprintTemplates" Relationship="Self.FK__Fingerpri__Accou__33D4B598" FromRole="AccountInformation" ToRole="FingerprintTemplate" />
+          <NavigationProperty Name="UserInformations" Relationship="Self.FK__UserInfor__Accou__2E1BDC42" FromRole="AccountInformation" ToRole="UserInformation" />
+          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AccountPinCode" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountInformations" Relationship="Self.FK__AccountIn__TypeI__276EDEB3" FromRole="AccountType" ToRole="AccountInformation" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FingerprintTemplate">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+          </Key>
+          <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="MinutiaeTemplateID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccountInformation" Relationship="Self.FK__Fingerpri__Accou__33D4B598" FromRole="FingerprintTemplate" ToRole="AccountInformation" />
+          <NavigationProperty Name="MinutiaeTemplatePath" Relationship="Self.FK__Fingerpri__Minut__34C8D9D1" FromRole="FingerprintTemplate" ToRole="MinutiaeTemplatePath" />
+        </EntityType>
+        <EntityType Name="MinutiaeTemplatePath">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplatePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FingerprintTemplates" Relationship="Self.FK__Fingerpri__Minut__34C8D9D1" FromRole="MinutiaeTemplatePath" ToRole="FingerprintTemplate" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserInformation">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="320" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountInformation" Relationship="Self.FK__UserInfor__Accou__2E1BDC42" FromRole="UserInformation" ToRole="AccountInformation" />
+        </EntityType>
+        <Association Name="FK__AccountIn__TypeI__276EDEB3">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="1" />
+          <End Role="AccountInformation" Type="Self.AccountInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="AccountInformation">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fingerpri__Accou__33D4B598">
+          <End Role="AccountInformation" Type="Self.AccountInformation" Multiplicity="1" />
+          <End Role="FingerprintTemplate" Type="Self.FingerprintTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountInformation">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="FingerprintTemplate">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserInfor__Accou__2E1BDC42">
+          <End Role="AccountInformation" Type="Self.AccountInformation" Multiplicity="1" />
+          <End Role="UserInformation" Type="Self.UserInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountInformation">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="UserInformation">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fingerpri__Minut__34C8D9D1">
+          <End Role="MinutiaeTemplatePath" Type="Self.MinutiaeTemplatePath" Multiplicity="1" />
+          <End Role="FingerprintTemplate" Type="Self.FingerprintTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MinutiaeTemplatePath">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FingerprintTemplate">
+              <PropertyRef Name="MinutiaeTemplateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LeafSecurityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountInformations" EntityType="Self.AccountInformation" />
+          <EntitySet Name="AccountTypes" EntityType="Self.AccountType" />
+          <EntitySet Name="FingerprintTemplates" EntityType="Self.FingerprintTemplate" />
+          <EntitySet Name="MinutiaeTemplatePaths" EntityType="Self.MinutiaeTemplatePath" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="UserInformations" EntityType="Self.UserInformation" />
+          <AssociationSet Name="FK__AccountIn__TypeI__276EDEB3" Association="Self.FK__AccountIn__TypeI__276EDEB3">
+            <End Role="AccountType" EntitySet="AccountTypes" />
+            <End Role="AccountInformation" EntitySet="AccountInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fingerpri__Accou__33D4B598" Association="Self.FK__Fingerpri__Accou__33D4B598">
+            <End Role="AccountInformation" EntitySet="AccountInformations" />
+            <End Role="FingerprintTemplate" EntitySet="FingerprintTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserInfor__Accou__2E1BDC42" Association="Self.FK__UserInfor__Accou__2E1BDC42">
+            <End Role="AccountInformation" EntitySet="AccountInformations" />
+            <End Role="UserInformation" EntitySet="UserInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fingerpri__Minut__34C8D9D1" Association="Self.FK__Fingerpri__Minut__34C8D9D1">
+            <End Role="MinutiaeTemplatePath" EntitySet="MinutiaeTemplatePaths" />
+            <End Role="FingerprintTemplate" EntitySet="FingerprintTemplates" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LeafSecurityModelStoreContainer" CdmEntityContainer="LeafSecurityEntities">
+          <EntitySetMapping Name="AccountInformations">
+            <EntityTypeMapping TypeName="LeafSecurityModel.AccountInformation">
+              <MappingFragment StoreEntitySet="AccountInformation">
+                <ScalarProperty Name="AccountPinCode" ColumnName="AccountPinCode" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="AccountCreationDate" ColumnName="AccountCreationDate" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountTypes">
+            <EntityTypeMapping TypeName="LeafSecurityModel.AccountType">
+              <MappingFragment StoreEntitySet="AccountType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="TypeDescription" ColumnName="TypeDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FingerprintTemplates">
+            <EntityTypeMapping TypeName="LeafSecurityModel.FingerprintTemplate">
+              <MappingFragment StoreEntitySet="FingerprintTemplate">
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="MinutiaeTemplateID" ColumnName="MinutiaeTemplateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MinutiaeTemplatePaths">
+            <EntityTypeMapping TypeName="LeafSecurityModel.MinutiaeTemplatePath">
+              <MappingFragment StoreEntitySet="MinutiaeTemplatePath">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TemplatePath" ColumnName="TemplatePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LeafSecurityModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInformations">
+            <EntityTypeMapping TypeName="LeafSecurityModel.UserInformation">
+              <MappingFragment StoreEntitySet="UserInformation">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
