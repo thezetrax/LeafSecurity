@@ -29,7 +29,6 @@ namespace LeafSecurity
         public virtual DbSet<AccountType> AccountTypes { get; set; }
         public virtual DbSet<FingerprintTemplate> FingerprintTemplates { get; set; }
         public virtual DbSet<MinutiaeTemplatePath> MinutiaeTemplatePaths { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserInformation> UserInformations { get; set; }
     }
 }

@@ -21,8 +21,8 @@ namespace LeafSecurity
         }
     
         public int TypeID { get; set; }
-        public string TypeDescription { get; set; }
         public string TypeName { get; set; }
+        public string TypeDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInformation> AccountInformations { get; set; }

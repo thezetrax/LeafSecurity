@@ -379,7 +379,7 @@
             this.groupBox3.Controls.Add(this.generateHashBtn);
             this.groupBox3.Location = new System.Drawing.Point(19, 20);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(504, 206);
+            this.groupBox3.Size = new System.Drawing.Size(504, 568);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Minatiuea Template Information";

@@ -24,10 +24,21 @@ namespace LeafSecurity
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            dashFrm = new DashBoardForm();
-            loginFrm = new LoginForm(dashFrm);
 
-            Application.Run(loginFrm);
+            // Bootstrapping Forms
+            dashFrm = new DashBoardForm(); // Main Form
+            loginFrm = new LoginForm(dashFrm); // Loging Form
+
+            if (!Bootstrap.Check(dashFrm)) // Check Everything is going fine
+            {
+                Application.Exit();
+                return;
+            }
+
+            dashFrm.Hide();
+            loginFrm.ShowDialog(dashFrm);
+
+            Application.Run(dashFrm);
         }
     }
 }

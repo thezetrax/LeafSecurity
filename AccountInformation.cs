@@ -22,10 +22,10 @@ namespace LeafSecurity
         }
     
         public int AccountID { get; set; }
+        public string AccountNumber { get; set; }
+        public string AccountUsername { get; set; }
         public System.DateTime AccountCreationDate { get; set; }
         public int TypeID { get; set; }
-        public string AccountNumber { get; set; }
-        public string AccountPinCode { get; set; }
     
         public virtual AccountType AccountType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

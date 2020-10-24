@@ -85,7 +85,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(227, 83);
+            this.label2.Location = new System.Drawing.Point(627, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 17);
             this.label2.TabIndex = 1;
@@ -94,7 +94,7 @@
             // searchQueryTxt
             // 
             this.searchQueryTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchQueryTxt.Location = new System.Drawing.Point(364, 80);
+            this.searchQueryTxt.Location = new System.Drawing.Point(764, 80);
             this.searchQueryTxt.Name = "searchQueryTxt";
             this.searchQueryTxt.Size = new System.Drawing.Size(325, 22);
             this.searchQueryTxt.TabIndex = 8;
@@ -103,9 +103,9 @@
             // 
             this.searchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.searchBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
-            this.searchBtn.Location = new System.Drawing.Point(695, 75);
+            this.searchBtn.Location = new System.Drawing.Point(1095, 78);
             this.searchBtn.Name = "searchBtn";
-            this.searchBtn.Size = new System.Drawing.Size(75, 30);
+            this.searchBtn.Size = new System.Drawing.Size(75, 25);
             this.searchBtn.TabIndex = 9;
             this.searchBtn.Text = "Search";
             this.searchBtn.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@
             // 
             this.advSearchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.advSearchBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.advSearchBtn.Location = new System.Drawing.Point(636, 111);
+            this.advSearchBtn.Location = new System.Drawing.Point(1036, 111);
             this.advSearchBtn.Name = "advSearchBtn";
             this.advSearchBtn.Size = new System.Drawing.Size(134, 32);
             this.advSearchBtn.TabIndex = 7;
@@ -142,7 +142,7 @@
             this.accountList.Location = new System.Drawing.Point(12, 149);
             this.accountList.MultiSelect = false;
             this.accountList.Name = "accountList";
-            this.accountList.Size = new System.Drawing.Size(758, 392);
+            this.accountList.Size = new System.Drawing.Size(1158, 592);
             this.accountList.TabIndex = 1;
             this.accountList.UseCompatibleStateImageBehavior = false;
             this.accountList.View = System.Windows.Forms.View.Details;
@@ -209,7 +209,7 @@
             // 
             this.viewLogBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.viewLogBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewLogBtn.Location = new System.Drawing.Point(496, 111);
+            this.viewLogBtn.Location = new System.Drawing.Point(896, 111);
             this.viewLogBtn.Name = "viewLogBtn";
             this.viewLogBtn.Size = new System.Drawing.Size(134, 32);
             this.viewLogBtn.TabIndex = 6;
@@ -227,7 +227,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(782, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1182, 28);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -242,7 +242,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(108, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -350,18 +350,18 @@
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(125, 26);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
             this.helpToolStripMenuItem1.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // addAccountBtn
             // 
-            this.addAccountBtn.Location = new System.Drawing.Point(12, 113);
+            this.addAccountBtn.Location = new System.Drawing.Point(12, 111);
             this.addAccountBtn.Name = "addAccountBtn";
             this.addAccountBtn.Size = new System.Drawing.Size(87, 32);
             this.addAccountBtn.TabIndex = 12;
@@ -373,9 +373,9 @@
             // 
             this.refreshTableBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refreshTableBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshTableBtn.Location = new System.Drawing.Point(265, 111);
+            this.refreshTableBtn.Location = new System.Drawing.Point(764, 111);
             this.refreshTableBtn.Name = "refreshTableBtn";
-            this.refreshTableBtn.Size = new System.Drawing.Size(225, 32);
+            this.refreshTableBtn.Size = new System.Drawing.Size(126, 32);
             this.refreshTableBtn.TabIndex = 6;
             this.refreshTableBtn.Text = "Refresh";
             this.refreshTableBtn.UseVisualStyleBackColor = true;
@@ -385,7 +385,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 553);
+            this.ClientSize = new System.Drawing.Size(1182, 753);
             this.Controls.Add(this.addAccountBtn);
             this.Controls.Add(this.accountList);
             this.Controls.Add(this.refreshTableBtn);
@@ -398,8 +398,9 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MinimumSize = new System.Drawing.Size(1200, 600);
             this.Name = "DashBoardForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LeafSecurity (Admin)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashBoardForm_FormClosed);
             this.Load += new System.EventHandler(this.DashBoardForm_Load);

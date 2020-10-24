@@ -15,7 +15,14 @@ namespace LeafSecurity
         AccountForm accountForm;
         private bool fingerprint_device_connected = false;
 
-        // detect weather fingerprint device connected
+        // Helper Functions
+        private void OpenAddAccountForm()
+        {
+            AccountForm addAccountForm = new AccountForm();
+            addAccountForm.ShowDialog(this);
+        }
+
+        // Tells dashboard weather fingerprint device connected
         public void fp_device_connected(bool isConnected)
         {
             fingerprint_device_connected = isConnected;
@@ -93,7 +100,7 @@ namespace LeafSecurity
             {
                 IEnumerable<AccountInformation> accounts = from account in db.AccountInformations
                                                            where account.AccountNumber.Contains(keyword)
-                                                           || account.AccountPinCode.Contains(keyword)
+                                                           || account.AccountUsername.Contains(keyword)
                                                            || account.AccountID.ToString().Contains(keyword)
                                                            select account;
 
@@ -203,29 +210,12 @@ namespace LeafSecurity
 
         private void addAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(accountForm.IsDisposed)
-            {
-                accountForm = new AccountForm();
-                accountForm.Show(this);
-            } else
-            {
-                accountForm.Show();
-                accountForm.BringToFront();
-            }
+            this.OpenAddAccountForm();
         }
 
         private void addAccountBtn_Click(object sender, EventArgs e)
         {
-            if (accountForm.IsDisposed)
-            {
-                accountForm = new AccountForm();
-                accountForm.Show(this);
-            }
-            else
-            {
-                accountForm.Show();
-                accountForm.BringToFront();
-            }
+            this.OpenAddAccountForm();
         }
 
         private void refreshTableBtn_Click(object sender, EventArgs e)
@@ -243,23 +233,19 @@ namespace LeafSecurity
         public void removeSelectedAccount()
         {
             Console.WriteLine("Selected Indices: {0}", accountList.SelectedIndices[0]);
-            if (accountList.SelectedIndices.Count.Equals(0))
-            {
-                return;
-            }
+
+            if (accountList.SelectedItems.Count == 0) return;
+
             ListViewItem selectedItem = accountList.SelectedItems[0];
-            int accID = Convert.ToInt32(selectedItem.Text);
-            DialogResult res = MessageBox.Show(
+            int accID = Convert.ToInt32(selectedItem.SubItems[0].Text);
+            DialogResult result = MessageBox.Show(
                                     String.Format(
                                         "Do you want to remove {0}'s account?",
                                         selectedItem.SubItems[1].Text),
                                     "Are you sure?",
                                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
-            // If 'No' do not remove
-            if (res == DialogResult.No)
-                return;
-
+            if (result == DialogResult.No) return; // Remove account confirm failed
 
             try
             {
@@ -289,48 +275,32 @@ namespace LeafSecurity
         {
             using (LeafSecurityEntities db = new LeafSecurityEntities())
             {
-                IEnumerable<AccountInformation> accounts = from acc in db.AccountInformations
+                AccountInformation account = (from acc in db.AccountInformations
                                                            where acc.AccountID.Equals(accountID)
-                                                           select acc;
+                                                           select acc).FirstOrDefault();
                 // If there are no accounts
-                if (accounts.Count().Equals(0))
-                    return false;
-
-                AccountInformation account = accounts.First();
-                
+                if (account == null) return false;
+                /**
+                 * We don't want to remove access to the main account.
+                 */
                 // Disabling Removing Main Admin Account
-                if (account.AccountID.Equals(1))
-                    throw new Exception("Can not delete default admin account.");
+                if (account.AccountID == 1) return false;
 
                 UserInformation userInfo = (from user in db.UserInformations
                                             where user.AccountID.Equals(account.AccountID)
-                                            select user).First();
+                                            select user).Single();
 
                 IEnumerable<FingerprintTemplate> fTemplates = (from fTemp in db.FingerprintTemplates
                                                                where fTemp.AccountID.Equals(account.AccountID)
                                                                select fTemp);
-                // If templates exists for this account.
-                if (!fTemplates.Count().Equals(0))
+
+                fTemplates.ToList().ForEach(t =>
                 {
+                    db.MinutiaeTemplatePaths.Remove(t.MinutiaeTemplatePath);
+                });
 
-                    foreach (FingerprintTemplate fTemplate in fTemplates)
-                    {
-                        int minId = fTemplate.MinutiaeTemplateID;
-                        db.FingerprintTemplates.Remove(fTemplate);
-                        db.SaveChanges();
-                        MinutiaeTemplatePath mTempPath = (from mPath in db.MinutiaeTemplatePaths
-                                                          where mPath.ID.Equals(minId)
-                                                          select mPath).First();
-                        db.MinutiaeTemplatePaths.Remove(mTempPath);
-                        db.SaveChanges();
-                    }
-                }
-
-                // removing user information
+                db.FingerprintTemplates.RemoveRange(fTemplates);
                 db.UserInformations.Remove(userInfo);
-                db.SaveChanges();
-
-                // removing user account
                 db.AccountInformations.Remove(account);
                 db.SaveChanges();
             }

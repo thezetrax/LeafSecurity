@@ -32,6 +32,8 @@ namespace LeafSecurity
 
         public bool fingerprintTaken { get; private set; }
 
+        // Helper Functions
+
         public AccountForm()
         {
             InitializeComponent();
@@ -98,15 +100,15 @@ namespace LeafSecurity
                     if (accType.Equals(1))
                     {
                         accountTypeCombo.SelectedItem = accountTypeCombo.Items[0];
-                        passwordTxt.Text = m_accountInformation.AccountPinCode;
-                        confirmPasswordTxt.Text = m_accountInformation.AccountPinCode;
+                        passwordTxt.Text = m_accountInformation.AccountUsername;
+                        confirmPasswordTxt.Text = m_accountInformation.AccountUsername;
                         stringHashTxt.Text = "Admin Account Doesn't Contain This Item.";
                     }
                     // If User Account Seleted
                     else
                     {
                         accountTypeCombo.SelectedIndex = 1;
-                        passwordTxt.Text = m_accountInformation.AccountPinCode;
+                        passwordTxt.Text = m_accountInformation.AccountUsername;
                     }
                     // AccountInformation
                     usernameTxt.Text = userInfo.AccountInformation.AccountNumber;
@@ -352,7 +354,7 @@ namespace LeafSecurity
                         // Account Information
                         AccountInformation accountInfo = new AccountInformation();
                         accountInfo.AccountNumber = usernameTxt.Text;
-                        accountInfo.AccountPinCode = passwordTxt.Text;
+                        accountInfo.AccountUsername = passwordTxt.Text;
                         accountInfo.TypeID = 1; // Since Account Type 'Admin' is identified as 1
                         accountInfo.AccountCreationDate = DateTime.Now;
 
@@ -388,7 +390,7 @@ namespace LeafSecurity
                         // Account Information
                         AccountInformation accountInfo = new AccountInformation();
                         accountInfo.AccountNumber = usernameTxt.Text;
-                        accountInfo.AccountPinCode = passwordTxt.Text;
+                        accountInfo.AccountUsername = passwordTxt.Text;
                         accountInfo.TypeID = 2; // Since Account Type 'User' is identified as 2
                         accountInfo.AccountCreationDate = DateTime.Now;
 
@@ -470,6 +472,7 @@ namespace LeafSecurity
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Console.WriteLine("User ID: {0}", userInformation.UserID);
                         Console.WriteLine("Account added to database.");
+                        this.Close();
                     }
                 }
             }
